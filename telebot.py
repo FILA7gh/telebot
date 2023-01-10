@@ -1,5 +1,6 @@
-from aiogram import Bot, Dispatcher, types
-from aiogram.utils import executor
+import logging
+from datetime import date
+from aiogram import Bot, Dispatcher, types, executor
 from decouple import config
 
 
@@ -9,7 +10,7 @@ dp = Dispatcher(bot=bot)  # вызываем диспетчер
 
 @dp.message_handler(commands=['start'])  # перехватчик команды старт
 async def start_command(message: types.Message):  # асинх функция
-    await message.answer(f"Здрасвтсвуйте хозяин, {message.from_user.first_name}, я ваш верный слуга")  # ответ бота
+    await message.answer(f"Здравcтвуйте хозяин {message.from_user.first_name}, я ваш верный слуга")  # ответ бота
 
 
 @dp.message_handler(commands=['quiz_1'])  # команда для квиза
@@ -60,6 +61,11 @@ async def show_meme(message: types.Message):
     meme.close()  # закрываем файл
 
 
+@dp.message_handler(commands=['date'])
+async def show_date(message: types.Message):
+    await message.reply(f'Текущая дата: {date.today()}')
+
+
 @dp.message_handler()  # для всех
 async def echo(message: types.Message):  # эхо бот
     if message.text.isdigit():  # если число
@@ -69,4 +75,5 @@ async def echo(message: types.Message):  # эхо бот
 
 
 if __name__ == '__main__':  # точка входа
+    logging.basicConfig(level=logging.INFO)  # логируем события
     executor.start_polling(dp)  # вызываем функцию
