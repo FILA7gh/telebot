@@ -63,13 +63,21 @@ async def show_meme(message: types.Message):
 
 @dp.message_handler(commands=['date'])
 async def show_date(message: types.Message):
-    await message.reply(f'Текущая дата: {date.today()}')
+    await message.answer(f'Текущая дата: {date.today()}')
+
+
+@dp.message_handler(commands=['pain'])
+async def know_the_pain(message: types.Message):
+    pain = open('media/pain.jpg', 'rb')
+    await bot.send_photo(message.from_user.id, photo=pain)
+    await message.answer(f'{message.from_user.first_name} вы познали боль!')
+    pain.close()
 
 
 @dp.message_handler()  # для всех
 async def echo(message: types.Message):  # эхо бот
     if message.text.isdigit():  # если число
-        await message.answer(int(message.text) ** 2)  # возводим во 2 степень
+        await message.reply(int(message.text) ** 2)  # возводим во 2 степень
     else:
         await message.answer(message.text)  # иначе возвращаем как эхо
 
