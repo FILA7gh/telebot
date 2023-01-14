@@ -1,6 +1,0 @@
-.env
-venv
-.idea
-__pycache__/
-config.py
-.gitignore
