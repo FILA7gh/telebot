@@ -24,6 +24,8 @@ async def pin(message: types.Message):
             await bot.pin_chat_message(message.chat.id, message.reply_to_message.message_id)
         else:
             await bot.send_message(message.chat.id, 'отметьте для закрепа!')
+    else:
+        await message.reply('Только для админов!')
 
 
 # регистрация функций

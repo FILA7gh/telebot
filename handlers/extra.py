@@ -6,7 +6,7 @@ from config import bot, ADMINS
 # проверка цензурных слов для участников
 async def censorship_check(message: types.Message):
 
-    bad_words = ['java', 'fuck', 'лох', 'даун', 'мал',
+    bad_words = ['java', 'fuck', 'лох', 'даун',
                  'ебать', 'сука', 'бл', 'епта']
 
     username = f"@{message.from_user.username}" \
@@ -22,13 +22,13 @@ async def censorship_check(message: types.Message):
                 await message.reply(f'Вам можно)')
 
     # рандомная игра для админа
-    if message.from_user.id in ADMINS:
-        if message.text.lower().startswith('game'):
+    if message.text.lower().startswith('game'):
+        if message.from_user.id in ADMINS:
             games = ['⚽', '🏀', '🎰', '🎯', '🎳', '🎲']
             rand_game = choice(games)
             await bot.send_dice(message.chat.id, emoji=rand_game)
-    else:
-        await message.answer('команда только для админов!')
+        else:
+            await message.answer('команда только для админов!')
 
 
 # регистрация функций

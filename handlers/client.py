@@ -8,15 +8,17 @@ from time import sleep
 
 # функция старта
 async def start_command(message: types.Message):
-    # для админов
-    if message.from_user.id in ADMINS:
-        await bot.send_message(message.chat.id,
-                               f" Здравcтвуйте хозяин {message.from_user.first_name},"
-                               f" я ваш верный слуга", reply_markup=start_markup)
-    # для участников
+    if message.chat.type != 'private':
+        # для админов
+        if message.from_user.id in ADMINS:
+            await bot.send_message(message.chat.id,
+                                   f" Здравcтвуйте хозяин {message.from_user.first_name},"
+                                   f" я ваш верный слуга")
+        # для участников
+        else:
+            await bot.send_message(message.chat.id, f"Привет {message.from_user.first_name}, я ваш помощник)")
     else:
-        await bot.send_message(message.chat.id, f"Привет {message.from_user.first_name}, я ваш помощник)")
-
+        await bot.send_message(message.chat.id, 'Доступные команды: ', reply_markup=start_markup)
 
 # функция кнопок квизов
 async def quiz(message: types.Message):
