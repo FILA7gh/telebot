@@ -14,4 +14,4 @@ extra.register_handlers_extra(dp)
 # точка входа
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)  # логируем события
-    executor.start_polling(dp, skip_updates=True)
+    executor.start_polling(dp, skip_updates=False)

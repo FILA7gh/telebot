@@ -12,7 +12,7 @@ async def ban(message: types.Message):
         else:
             await bot.kick_chat_member(message.chat.id,
                                        message.reply_to_message.from_user.id)
-            await message.answer(f'Пользователь: {message.reply_to_message.from_user.username} был изгнан!')
+            await message.answer(f'Пользователь: @{message.reply_to_message.from_user.username} был изгнан!')
     else:
         await message.answer('это команда работает только в группе!')
 
