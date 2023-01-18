@@ -20,6 +20,7 @@ async def start_command(message: types.Message):
     else:
         await bot.send_message(message.chat.id, 'Доступные команды: ', reply_markup=start_markup)
 
+
 # функция кнопок квизов
 async def quiz(message: types.Message):
 
@@ -70,7 +71,7 @@ async def dice(message: types.Message):
         await bot.send_message(message.chat.id, 'ничья!')
 
 
-# регистрация функций
+# функция регистрации функций
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
     dp.register_message_handler(quiz, commands=['quiz'])

@@ -1,13 +1,14 @@
 import logging
 from config import dp
 from aiogram import executor
-from handlers import client, extra, callback, admin
+from handlers import client, extra, callback, admin, fsmAdminMentor
 
 
 # вызов регистров
 client.register_handlers_client(dp)
 callback.register_handlers_callback(dp)
 admin.register_handler_admin(dp)
+fsmAdminMentor.register_handler_fsm(dp)
 
 extra.register_handlers_extra(dp)
 

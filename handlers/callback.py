@@ -63,7 +63,7 @@ async def quiz_3(call: types.CallbackQuery):
     )
 
 
-# регистрация функций
+# функция регистрации функций
 def register_handlers_callback(dp: Dispatcher):
     dp.register_callback_query_handler(quiz_1, text='button1')
     dp.register_callback_query_handler(quiz_2, text='button2')

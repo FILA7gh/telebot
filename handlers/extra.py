@@ -31,6 +31,6 @@ async def censorship_check(message: types.Message):
             await message.answer('команда только для админов!')
 
 
-# регистрация функций
+# функция регистрации функций
 def register_handlers_extra(dp: Dispatcher):
     dp.register_message_handler(censorship_check)

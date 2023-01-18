@@ -28,7 +28,7 @@ async def pin(message: types.Message):
         await message.reply('Только для админов!')
 
 
-# регистрация функций
+# функция регистрации функций
 def register_handler_admin(dp: Dispatcher):
     dp.register_message_handler(ban, commands=['ban'], commands_prefix='!/')
     dp.register_message_handler(pin, commands=['pin'], commands_prefix='!')
