@@ -1,7 +1,14 @@
 import logging
-from config import dp
+from config import dp, bot, ADMINS
 from aiogram import executor
 from handlers import client, extra, callback, admin, fsmAdminMentor
+from database.painbot_db import create_db
+
+
+async def on_startup(_):
+    await bot.send_message(chat_id=ADMINS[0],
+                           text="Bot started!")
+    create_db()
 
 
 # вызов регистров
@@ -15,4 +22,5 @@ extra.register_handlers_extra(dp)
 # точка входа
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)  # логируем события
-    executor.start_polling(dp, skip_updates=False)
+    executor.start_polling(dp, skip_updates=True,
+                           on_startup=on_startup)

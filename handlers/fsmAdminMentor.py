@@ -4,6 +4,7 @@ from keyboards.client_kb import submit_markup, cancel_markup, directory_markup
 from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
+from database.painbot_db import sql_insert
 
 
 #  Создание состояний ФСМ
@@ -80,7 +81,7 @@ async def load_group(message: types.Message, state: FSMContext):
 async def submit(message: types.Message, state: FSMContext):
 
     if message.text.lower() == "да":
-        # DB
+        await sql_insert(state) #  добавление в БД
         await state.finish()
         await message.answer('Загружено в базу данных')
 
@@ -111,7 +112,7 @@ def id_gen():
 # функция регистрации функций
 def register_handler_fsm(dp: Dispatcher):
     dp.register_message_handler(cancel_reg, state='*', commands='CANCEL')
-    dp.register_message_handler(fsm_start, commands=['req'])
+    dp.register_message_handler(fsm_start, commands=['reg'])
     dp.register_message_handler(load_name, state=FSMAdmin.name)
     dp.register_message_handler(load_direction, state=FSMAdmin.direction)
     dp.register_message_handler(load_age, state=FSMAdmin.age)
