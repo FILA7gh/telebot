@@ -26,8 +26,8 @@ async def put_units():
 
 # функция отправки уведомления каждую пятницу
 async def scheduler():
-    aioschedule.every().second.do(go_to_juma)
-    aioschedule.every(2).seconds.do(put_units)
+    aioschedule.every().friday.at('13:00').do(go_to_juma)
+    aioschedule.every(7).days.at('00:00').do(put_units)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
