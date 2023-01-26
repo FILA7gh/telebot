@@ -1,11 +1,13 @@
+import asyncio
 import logging
 from config import dp, bot, ADMINS
 from aiogram import executor
-from handlers import client, extra, callback, admin, fsmAdminMentor
+from handlers import client, extra, callback, admin, fsmAdminMentor, notification
 from database.painbot_db import create_db
 
 
 async def on_startup(_):
+    asyncio.create_task(notification.scheduler())
     await bot.send_message(chat_id=ADMINS[0],
                            text="Bot started!")
     create_db()
@@ -16,6 +18,7 @@ client.register_handlers_client(dp)
 callback.register_handlers_callback(dp)
 admin.register_handler_admin(dp)
 fsmAdminMentor.register_handler_fsm(dp)
+notification.register_handler_notification(dp)
 
 extra.register_handlers_extra(dp)
 
