@@ -1,6 +1,7 @@
 from datetime import date
 from config import bot, ADMINS
 from aiogram import types, Dispatcher
+from parser.news import parser
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from keyboards.client_kb import start_markup
 from time import sleep
@@ -71,6 +72,15 @@ async def dice(message: types.Message):
         await bot.send_message(message.chat.id, 'ничья!')
 
 
+async def get_news(message: types.Message):
+    news = parser()
+    for i in news:
+        await message.answer(
+            f"{i['link']}\n\n"
+            f"{i['time']}\n"
+        )
+
+
 # функция регистрации функций
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
@@ -79,3 +89,4 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(show_date, commands=['date'])
     dp.register_message_handler(know_the_pain, commands=['pain'])
     dp.register_message_handler(dice, commands=['dice'])
+    dp.register_message_handler(get_news, commands=['news'])
