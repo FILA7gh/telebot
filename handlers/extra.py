@@ -23,10 +23,10 @@ def get_message(message):
 
 
 async def openai_(message: types.Message):
-
+    #  weather
     if message.text.startswith('weather'):
         await message.answer(weather(message.text.replace('weather', '')))
-
+    #  GPT
     else:
         await message.answer(get_message(message))
 
